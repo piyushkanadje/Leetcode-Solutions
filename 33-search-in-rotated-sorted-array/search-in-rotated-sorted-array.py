@@ -1,31 +1,28 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        left = 0
-        right = len(nums)-1
-        fix  = nums[0]
+        l = 0
+        r = len(nums)-1
+        mid = 0
+        while l <= r:
+            mid = (l + r) // 2
+            if target == nums[mid]:
+                return mid
+        
+        #Search in left side of the sorted array
+            if nums[l] <= nums[mid]:
+                if target > nums[mid] or target < nums[l]:
+                    l = mid + 1
+                else:
+                    r = mid - 1
+            else:
+                if target < nums[mid] or target > nums[r]:
+                    r = mid - 1
+                else:
+                    l = mid + 1
+                    
 
-        if target < fix :
-            right =  len(nums) - 1
 
-            while True:
-                if right >=0 and nums[right] == target:
-                    return right
-                if right < 0 or target > nums[right]:
-                    return -1
-                right -=1
-        elif target >fix :
-            left =0 
 
-            while True:
-                if left <= len(nums)-1 and  nums[left] == target:
-                    return left
-                if left > len(nums)-1 or nums[left] > target:
-                    return -1
-
-                left+=1
-        else: 
-            if target == fix:
-                return 0
         return -1
 
 
