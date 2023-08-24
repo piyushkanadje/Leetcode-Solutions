@@ -11,7 +11,7 @@ class Solution:
             nonlocal cnt  # Use nonlocal to update the count variable
             if not node:
                 return None
-                
+
             # Traverse left subtree
             left_result = dfs(node.left)
             if left_result is not None:
