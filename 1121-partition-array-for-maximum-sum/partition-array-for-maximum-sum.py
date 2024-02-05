@@ -1,19 +1,17 @@
 class Solution:
     def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
         n = len(arr)
-        dp = [-1] * n
-        def dfs(arr, k, index,dp):
-            if index == n:
-                return 0
-            if dp[index] != -1: return dp[index]
+        dp = [0] * (n + 1)
+
+        for i in range(n-1, -1, -1):
             length = 0
             maxNum = float('-inf')
             maxAns = float('-inf')
-            for i in range(index, min(n, index + k)):
+            for j in range(i, min(n, i + k)):
                 length += 1
-                maxNum = max(maxNum, arr[i])
-                summ = length * maxNum + dfs(arr, k, index + length,dp)
+                maxNum = max(maxNum, arr[j])
+                summ = length * maxNum + dp[j+1]
                 maxAns = max(maxAns, summ)
-            dp[index] = maxAns
-            return dp[index]
-        return dfs(arr ,  k , 0, dp)
+            dp[i] = maxAns
+
+        return dp[0]
