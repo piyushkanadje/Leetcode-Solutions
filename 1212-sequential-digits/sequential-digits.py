@@ -4,7 +4,7 @@ class Solution:
         queue = deque(range(1, 10))
 
         while queue:
-            print(queue)
+
             n = queue.popleft()
             print(n)
             if n > high:
