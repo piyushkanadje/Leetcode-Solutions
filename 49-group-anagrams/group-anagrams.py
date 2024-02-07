@@ -9,6 +9,3 @@ class Solution:
                 dict[sortedString].append(i)
         
         return dict.values()
-
-
-            
