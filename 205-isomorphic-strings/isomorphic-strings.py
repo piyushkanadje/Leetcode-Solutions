@@ -8,4 +8,6 @@ class Solution:
             map2.append(t.index(idx))
         if map1 == map2:
             return True
+        
+        print(map1, map2)
         return False
