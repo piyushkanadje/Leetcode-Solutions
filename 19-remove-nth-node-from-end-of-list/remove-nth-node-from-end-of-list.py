@@ -12,22 +12,18 @@ class Solution:
             curr = curr.next
 
         if count == 1 :
-            return None;
+            return None
         if count == n:
             head = head.next
             return head 
-
-        count = count - n -1 
+        count = count - n -1
         temp = head
         while count > 0:
             temp = temp.next
-            count -=1
+            count-=1
         
         if temp.next:
-            temp2= temp.next
+            temp2 = temp.next
             temp.next = temp2.next
-
-        return head
-
-
         
+        return head
