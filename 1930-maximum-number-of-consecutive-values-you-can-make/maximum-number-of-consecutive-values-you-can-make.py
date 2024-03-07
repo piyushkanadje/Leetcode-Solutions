@@ -1,15 +1,8 @@
 class Solution:
     def getMaximumConsecutive(self, coins: List[int]) -> int:
         coins.sort()
-        ans=0
-        tot=0
-        for i in range(len(coins)):
-            if tot-coins[i]>=-1:
-                tot+=coins[i]
-                ans=tot
-            else:
-                break
-        return ans+1
-
-
-        
+        max_make = 1
+        for coin in coins:
+            if coin<= max_make:
+                max_make +=coin
+        return max_make
