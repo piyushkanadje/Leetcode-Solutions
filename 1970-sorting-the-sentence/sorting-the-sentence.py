@@ -7,6 +7,5 @@ class Solution:
         sen = ""
         for i in arr:
             sen+=(i+' ')
-        
         return sen.strip()
             
