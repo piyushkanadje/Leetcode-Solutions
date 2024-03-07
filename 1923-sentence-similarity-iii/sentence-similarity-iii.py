@@ -1,16 +1,23 @@
 class Solution:
     def areSentencesSimilar(self, sentence1: str, sentence2: str) -> bool:
-        s1 = deque(sentence1.split(' '))
-        s2 = deque(sentence2.split(' '))
+        a  = sentence1.strip().split(' ')
+        b = sentence2.strip().split()
 
-        while s1 and s2:
-            if s2[0] == s1[0]:
-                s2.popleft()
-                s1.popleft()
-                continue
-            elif s2[-1] == s1[-1]:
-                s2.pop()
-                s1.pop()
-                continue
-            return False
-        return True
+        n = len(a)
+        m  = len(b)
+        print(n,m, a, b)
+        if n < m:
+            a , b = b,a
+            m=n
+        i = 0
+        while i < m and a[i] == b[i] :
+            i+=1
+        #Means both strings are same 
+        if i==m:
+            return True
+
+        j = 0
+        while j < m - i and a[-1 -j ] == b [-1 - j]:
+            j+=1
+        
+        return i+j == m
