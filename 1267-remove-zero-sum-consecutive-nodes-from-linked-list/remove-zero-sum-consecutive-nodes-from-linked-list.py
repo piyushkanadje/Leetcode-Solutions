@@ -1,23 +1,27 @@
-class Solution(object):
-    def removeZeroSumSublists(self, head):
-        dummy = ListNode(0)
-        dummy.next = head
-        prefix_sum = 0
-        prefix_sums = {0: dummy}
-        current = head
-
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        #dummy node for the linkedList
+        dummyNode = ListNode(0)
+        dummyNode.next = head
+        prefixSum = 0
+        prefixUntilNode = {0: dummyNode}
+        current = head 
         while current:
-            prefix_sum += current.val
-            if prefix_sum in prefix_sums:
-                to_delete = prefix_sums[prefix_sum].next
-                temp_sum = prefix_sum + to_delete.val
-                while to_delete != current:
-                    del prefix_sums[temp_sum]
-                    to_delete = to_delete.next
-                    temp_sum += to_delete.val
-                prefix_sums[prefix_sum].next = current.next
+            prefixSum +=current.val 
+            if prefixSum in prefixUntilNode:
+                todelete = prefixUntilNode[prefixSum].next
+                tempSum = prefixSum + todelete.val
+                while todelete != current:
+                    del prefixUntilNode[tempSum]
+                    todelete = todelete.next
+                    tempSum+=todelete.val
+                prefixUntilNode[prefixSum].next = current.next
             else:
-                prefix_sums[prefix_sum] = current
+                prefixUntilNode[prefixSum] = current
             current = current.next
-
-        return dummy.next
+        return dummyNode.next
