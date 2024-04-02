@@ -4,7 +4,9 @@ class Solution:
         for i in nums:
             dict[i] = 1 + dict.get(i,0)
         
+        maxVal = max(dict.values())
+
         for i in dict:
-            if dict[i] > len(nums)/2:
-                return i
+            if dict[i] == maxVal:
+                return  i
         
