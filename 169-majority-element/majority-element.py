@@ -1,12 +1,8 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        dict = {}
-        for i in nums:
-            dict[i] = 1 + dict.get(i,0)
-        
-        maxVal = max(dict.values())
+        for [x, cnt] in Counter(nums).items():
+            if cnt * 2 >= len(nums):
+                return x
 
-        for i in dict:
-            if dict[i] == maxVal:
-                return  i
+        return -1
         
