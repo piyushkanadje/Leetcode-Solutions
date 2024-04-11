@@ -10,7 +10,8 @@ class Solution:
                 stack.pop()
                 k -= 1
             stack.append(ele)
-        stack = stack[:-k] if k else stack
-
+        while k > 0:
+            stack.pop()
+            k-=1
         ans = ''.join(stack).lstrip('0')
         return ans if ans else "0"
