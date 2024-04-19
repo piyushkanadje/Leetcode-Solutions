@@ -1,24 +1,38 @@
-from collections import deque
+import collections
+
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        """
-        :type grid: List[List[str]]
-        :rtype: int
-        """
         if not grid:
-            return 0   
-        count = 0
-        check = [[False for _ in range(len(grid[0]))] for _ in range(len(grid))]
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if grid[i][j] =='1' and check[i][j]== False:
-                    count += 1
-                    self.search(grid,check,i,j)
-        return count       
-    def search(self,grid,check,i,j):
-        qu = deque([(i,j)])
-        while qu:
-            i, j = qu.popleft()
-            if 0<=i<len(grid) and 0<=j<len(grid[0]) and grid[i][j]=='1' and check[i][j]==False:
-                check[i][j] = True
-                qu.extend([(i-1,j),(i+1,j),(i,j-1),(i,j+1)])
+            return 0
+        
+        row , col = len(grid), len(grid[0])
+        visited = set()
+        island = 0
+
+        # def bfs(r,c):
+        #     queue = collections.deque()
+        #     visited.add((r,c))
+        #     queue.append((r,c))
+        #     while queue:
+        #         row, col = queue.popleft()
+        #         direction=[[1,0],[-1,0],[0,1],[0,-1]]
+        #         for dr, dc in direction:
+        #             new_r ,new_c =  row + dr, col + dc
+        #             if(new_r in range(row) and new_c in range(col) and grid[new_r][new_c] =="1" and (new_r,new_c) not in visited):
+        #                 queue.append((new_r,new_c))
+        #            visited.add((new_r,new_c))
+        def dfs(r,c):
+            if (r not in range(row)or c not in range(col) or grid[r][c]=="0"or (r,c) in visited):
+                return
+            visited.add((r,c))
+            directions = [[0,1],[0,-1],[1,0],[-1,0]]
+            for dr, dc in directions:
+                dfs(r+dr,c+dc)
+
+        for r in range(row):
+            for c in range(col):
+                if(grid[r][c] == "1" and (r,c) not in visited):
+                    island+=1
+                    dfs(r,c)
+                  
+        return island
