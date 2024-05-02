@@ -1,11 +1,10 @@
-class Solution(object):
-    def pivotIndex(self, nums):
-        leftSum, rightSum = 0, sum(nums)
-        # Traverse elements through the loop...
-        for idx, ele in enumerate(nums):
-            rightSum -= ele
-            # If the sum of all the numbers strictly to the left of the index is equal to the sum of all the numbers strictly to the index's right...
-            if leftSum == rightSum:
-                return idx      # Return the pivot index...
-            leftSum += ele
-        return -1       # If there is no index that satisfies the conditions in the problem statement...
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        start = sum(nums)
+        summ =0
+        for idx , ele in enumerate(nums):
+            num = nums[idx]
+            if summ == (start - num) / 2:
+                return idx
+            summ += num
+        return -1
