@@ -1,11 +1,11 @@
 class Solution:
     def findMaxK(self, nums: List[int]) -> int:
-        ans  = 0
+        ans=-1
         for i in range(len(nums)):
-            if -nums[i] in nums and nums[i] > ans:
-                ans = abs(nums[i])
-
-        return  -1 if ans == 0 else ans
+            if nums[i]>0 and nums[i]>ans:
+                if (nums[i]*-1) in nums:
+                    ans=nums[i]
+        return ans
             
 
         
