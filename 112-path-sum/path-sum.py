@@ -10,13 +10,13 @@ class Solution:
             if not node:
                 return False
             
-            if node.left ==None and node.right==None:
-                return (curr + node.val) == targetSum
-            
+            if node.left == None and node.right== None:
+                return curr+node.val==targetSum
             curr+=node.val
-            left = dfs(node.left, curr)
-            right = dfs(node.right, curr)
+            left = dfs(node.left,curr)
+            right= dfs(node.right, curr)
 
             return left or right
         return dfs(root, 0)
-        
+
+    
