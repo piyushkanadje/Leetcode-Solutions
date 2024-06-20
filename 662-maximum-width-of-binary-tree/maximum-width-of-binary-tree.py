@@ -15,13 +15,13 @@ class Solution:
         queue.append((root, 0))
         while queue:
             queuelength = len(queue)
-            _, levelOfRoot = queue[0]
+            _, currentLevel = queue[0]
             for i in range(queuelength):
-                node, parentRoot = queue.pop(0)
+                node, toDecideNextLevel = queue.pop(0)
                 if node.left:
-                    queue.append((node.left, 2* parentRoot))
+                    queue.append((node.left, 2* toDecideNextLevel))
                 if node.right:
-                    queue.append((node.right, 2*parentRoot + 1))
-            width = max(width, parentRoot - levelOfRoot + 1)
+                    queue.append((node.right, 2* toDecideNextLevel + 1))
+            width = max(width, toDecideNextLevel - currentLevel + 1)
         
         return width
