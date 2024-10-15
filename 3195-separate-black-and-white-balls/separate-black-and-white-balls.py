@@ -1,11 +1,15 @@
 class Solution:
     def minimumSteps(self, s: str) -> int:
-        zeroCount = 0
+        n = len(s)
+        l , r = 0 , n-1
         ans = 0
-        for i in range(len(s)-1,-1,-1):
-            if zeroCount > 0 and s[i] == "1":
-                ans+=zeroCount
-            if s[i]=="0":
-                zeroCount+=1
-        
+        while l < r:
+            while s[l] == "0" and l < n-1 : l+=1
+            while s[r] =="1" and r>0 : r-=1
+
+            if l < r and s[l] == "1" and s[r] == "0":
+                ans+=(r-l)
+                l+=1
+                r-=1
+            
         return ans
