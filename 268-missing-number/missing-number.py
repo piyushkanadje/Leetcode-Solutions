@@ -1,5 +1,6 @@
 class Solution:
+    def sum_of_n(self, n):
+        return n * (n + 1) // 2
     def missingNumber(self, nums: List[int]) -> int:
-        n = len(nums)
-
-        return n * (n + 1) // 2 - sum(nums)
+        
+        return self.sum_of_n(len(nums)) - sum(nums)
