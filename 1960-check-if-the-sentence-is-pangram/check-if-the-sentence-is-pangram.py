@@ -1,9 +1,9 @@
+        
+        
 class Solution:
     def checkIfPangram(self, sentence: str) -> bool:
-        if len(sentence) < 26:
-            return False
-        arr = [0] * 26
+        s = set()
         for i in range(len(sentence)):
-            arr[ord(sentence[i]) - ord('a')]=1
-        print(arr)
-        return True if sum(arr) == 26 else False
+            s.add(sentence[i])
+            
+        return True if len(s) == 26 else False
