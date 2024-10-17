@@ -1,35 +1,18 @@
 class Solution:
     def maximumSwap(self, num: int) -> int:
-        n = str(num)
+        nums  = list(str(num))
+        max_i = -1
+        max_digit = "0"
+        swapi, swapj= -1,-1
+        for i in reversed(range(len(nums))):
+            #Find the max
+            if nums[i] > max_digit:
+                max_digit = nums[i]
+                max_i = i
 
-        #dict to store the position of the element
-        d = dict()
-        arr = []
-        for i in range(len(n)):
-            if n[i] in d:
-                d[n[i]].append(i)
-            else:
-                d[n[i]] = [i]
-            
-            arr.append(int(n[i]))
-        arr1 = sorted(arr, reverse = True)
-        # now we need to find the swap positions
-        swap1 = 0
-        swap2 = 0
+            if nums[i] < max_digit: 
+                swapi, swapj= max_i, i
 
-        for i in range(len(n)):
-            if int(n[i]) != arr1[i]:
-                swap1 = i
-                swap2 = d[str(arr1[i])][-1]
-                break
-        
-        tmp = arr[swap1]
-        arr[swap1] = arr[swap2]
-        arr[swap2] = tmp
+        nums[swapi], nums[swapj] = nums[swapj], nums[swapi]
 
-        ans = ""
-        for i in arr:
-            ans +=str(i)
-
-        
-        return int(ans)
+        return int("".join(nums))
