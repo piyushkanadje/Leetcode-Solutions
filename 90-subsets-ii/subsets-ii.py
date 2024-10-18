@@ -1,20 +1,25 @@
+
+
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         res = []
-        nums.sort()
-        def dfs(i,curr):
+        nums.sort()  # Sort the input to make duplicates adjacent
+        subset = []
+
+        def dfs(i):
             if i == len(nums):
-                res.append(curr[::])
+                # Add subset to res only if it's not already present
+                if subset not in res:
+                    res.append(subset.copy())
                 return
             
-            curr.append(nums[i])
-            dfs(i+1,curr)
+            # Include nums[i]
+            subset.append(nums[i])
+            dfs(i + 1)
 
-            curr.pop()
-            while i+1 < len(nums) and nums[i] == nums[i+1]:
-                i+=1
-            
-            dfs(i+1,curr)
+            # Exclude nums[i] and backtrack
+            subset.pop()
+            dfs(i + 1)
         
-        dfs(0,[])
+        dfs(0)
         return res
