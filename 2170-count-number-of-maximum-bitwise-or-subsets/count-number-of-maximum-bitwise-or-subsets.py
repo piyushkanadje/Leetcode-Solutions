@@ -14,9 +14,11 @@ class Solution:
             
             elif curr | nums[i] == maxx:
                 count += 1
-
-            helper(i+1, curr)
+            #include this nums[i] in bitwise or 
             helper(i+1, curr|nums[i])
+            #do not include this nums[i] in bitwise or
+            helper(i+1, curr)
+            
         
         helper(0,0)
 
