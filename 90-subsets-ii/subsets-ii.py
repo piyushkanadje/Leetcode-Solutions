@@ -8,9 +8,7 @@ class Solution:
 
         def dfs(i):
             if i == len(nums):
-                # Add subset to res only if it's not already present
-                if subset not in res:
-                    res.append(subset.copy())
+                res.append(subset.copy())
                 return
             
             # Include nums[i]
@@ -19,6 +17,9 @@ class Solution:
 
             # Exclude nums[i] and backtrack
             subset.pop()
+            #Do not add duplicates
+            while i+1 < len(nums) and nums[i] == nums[i+1]:
+                i+=1
             dfs(i + 1)
         
         dfs(0)
