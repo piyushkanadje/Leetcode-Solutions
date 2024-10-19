@@ -1,20 +1,15 @@
 class Solution:
-
-    def invertAndReversed(self,s):
-        ans=""
-        for i in s:
-            if int(i)==0:
-                ans+="1"
-            else:
-                ans+="0"
-        return ans[::-1]
-
     def findKthBit(self, n: int, k: int) -> str:
+        if n==1:
+            return "0"
         
-        S1="0"
-        arr = [0] * (n+1)
-        arr[0] = S1
-        for i in range(1, n+1):
-            arr[i] = arr[i-1] + "1" + self.invertAndReversed(arr[i-1])
+        length = 1 << n
+
+        if k < length//2:
+            return self.findKthBit(n-1, k)
         
-        return arr[n][k-1]
+        elif k == length//2:
+            return "1"
+        else:
+            corresponding_bit = self.findKthBit(n-1, length-k)
+            return "1" if corresponding_bit=="0" else "0"
