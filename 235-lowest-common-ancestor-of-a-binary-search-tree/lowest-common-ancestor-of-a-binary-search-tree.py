@@ -7,13 +7,27 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        curr = root
 
-        while curr:
-            if p.val> curr.val and q.val > curr.val:
-                curr= curr.right
-            elif p.val < curr.val and q.val < curr.val:
-                curr = curr.left
-            else:
-                return curr
+        # this problem can be divided into 3 steps.\
+        # if root == left or root== right return root because root always be small
+        # if at each point we have left and right then we can return root
+        # if we have either we will return that
+
+        if not root:
+            return 0
+        
+        if root ==p or q == root:
+            return root
+        
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right , p, q)
+
+        if left and right:
+            return root
+        
+        if left:
+            return left
+        
+        return right
+        
             
