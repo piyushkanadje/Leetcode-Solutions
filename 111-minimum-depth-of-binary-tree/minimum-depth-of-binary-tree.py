@@ -9,16 +9,12 @@ class Solution:
         if not root:
             return 0
         
-        # If left subtree is None, only consider right subtree
         if not root.left:
-            return self.minDepth(root.right) + 1
-        
-        # If right subtree is None, only consider left subtree
+            return 1+ self.minDepth(root.right)
         if not root.right:
-            return self.minDepth(root.left) + 1
+            return 1 + self.minDepth(root.left)
         
-        # If both subtrees exist, find the minimum depth between the two
-        left_depth = self.minDepth(root.left)
-        right_depth = self.minDepth(root.right)
-        
-        return min(left_depth, right_depth) + 1
+        left = self.minDepth(root.left)
+        right= self.minDepth(root.right)
+
+        return 1 + min(left, right)
