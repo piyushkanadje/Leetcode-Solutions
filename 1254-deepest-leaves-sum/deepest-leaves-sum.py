@@ -1,35 +1,44 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
 class Solution:
     def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
-        if not root: return 0
         
-        queue = deque()
-        queue.append(root)
-        maxdepth = 0
-        while queue:
-            lvllen = len(queue)
-            maxdepth += 1
-            for i in range(lvllen):
-                node = queue.popleft()
-                if node.left: 
-                    queue.append(node.left)
-                if node.right: 
-                    queue.append(node.right)
+        def dfs(root):
+            if not root:
+                return 0
+            
+            left = dfs(root.left)
+            right= dfs(root.right)
+
+            return 1+ max(left, right)
         
+        height = dfs(root)
+        if height==1:
+            return root.val
+
+        queue = deque([root])
+        count = 0
         ans = 0
-        
-        queue = deque()
-        queue.append(root)
-        depth = 0
+
         while queue:
-            lvllen = len(queue)
-            depth += 1
-            for i in range(lvllen):
+            curr_len= len(queue)
+            count+=1
+            for _ in range(curr_len):
                 node = queue.popleft()
-                if depth == maxdepth:
-                    ans += node.val
-                if node.left: 
+                if node.left :
                     queue.append(node.left)
-                if node.right: 
+                if node.right:
                     queue.append(node.right)
-        
+            
+            if count==height-1:
+                for _ in range(len(queue)):
+                    node= queue.popleft()
+                    ans+=node.val
+
+
         return ans
