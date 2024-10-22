@@ -7,5 +7,8 @@ class Solution:
                 dict[sortedString] = [i]
             else:
                 dict[sortedString].append(i)
-        
-        return dict.values()
+            
+        ans= []
+        for i in dict.values():
+            ans.append(i)
+        return ans
