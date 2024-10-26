@@ -1,13 +1,14 @@
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        currSum  = 0
-        left  =0
-        ans = float('inf')
-        for right in range(len(nums)):
-            currSum+=nums[right]
-            while currSum >= target:
-                ans = min(ans, right - left + 1)
-                currSum-=nums[left]
-                left+=1
-        
-        return ans if ans != float('inf') else 0
+        l = 0 
+        curr_sum = 0
+        minLen = float("inf")
+        for r in range(len(nums)):
+            curr_sum +=nums[r]
+
+            while curr_sum >= target:
+                minLen = min(minLen,r-l +1)
+                curr_sum-=nums[l]
+                l+=1
+            
+        return minLen if minLen!=float("inf") else 0
