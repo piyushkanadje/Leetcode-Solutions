@@ -10,11 +10,11 @@ class Solution:
             'D': 500,
             'M': 1000
         }
-
-        for a, b in zip(s, s[1:]):
-            if roman[a] < roman[b]:
-                res -= roman[a]
+        count=0
+        count+=roman[s[-1]]
+        for i in range(len(s)-2, -1, -1):
+            if roman[s[i]] >= roman[s[i+1]]:
+                count+=roman[s[i]]
             else:
-                res += roman[a]
-
-        return res + roman[s[-1]] 
+                count-=roman[s[i]]
+        return count
