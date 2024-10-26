@@ -1,5 +1,6 @@
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
+        #to handle k >=n
         k %= len(nums)
 
         def reverse(left, right):
