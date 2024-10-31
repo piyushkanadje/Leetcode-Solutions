@@ -1,15 +1,12 @@
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        d = collections.defaultdict(int)
-        for i in magazine:
-            d[i] +=1
-        
+        ransomNote_counter= Counter(ransomNote)
+        magzine_counter= Counter(magazine)
         for i in ransomNote:
-            if i in d:
-                d[i] -=1
-                if d[i] == 0:
-                    del d[i]
-            else:
+            if i not in magzine_counter:
+                return False
+            
+            if i in magzine_counter and magzine_counter[i] < ransomNote_counter[i]:
                 return False
         
         return True
