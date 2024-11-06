@@ -1,28 +1,21 @@
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        def merge(intervals: List[List[int]]):
-            intervals = sorted(intervals)
-            curr= intervals[0]
-            ans= []
-            ans.append(curr)
-            for interval in intervals:
-                currBegin = curr[0]
-                currEnd= curr[1]
-                nextBegin = interval[0]
-                nextEnd = interval[1]
+        merge_interval  = []
+        i = 0
+        n= len(intervals)
 
-                if currEnd >= nextBegin:
-                    curr[1] =max(currEnd, nextEnd)
-                else:
-                    curr= interval
-                    ans.append(interval)
-            return ans
-            
-        if len(intervals) ==0:
-            return [newInterval]
-        lists = intervals
-        lists.append(newInterval)
-        ans=merge(lists)
-        return ans
+        while i < n and intervals[i][1] < newInterval[0]:
+            merge_interval.append(intervals[i])
+            i+=1
 
-            
+        while i < n and intervals[i][0] <= newInterval[1]:
+            newInterval[0]=min(newInterval[0], intervals[i][0])
+            newInterval[1]=max(newInterval[1], intervals[i][1])
+            i+=1
+        merge_interval.append(newInterval)
+
+        while i < n :
+            merge_interval.append(intervals[i])
+            i+=1
+    
+        return merge_interval
