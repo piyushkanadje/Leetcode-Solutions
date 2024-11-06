@@ -1,15 +1,27 @@
 class Solution:
     def canSortArray(self, nums: List[int]) -> bool:
-        n = len(nums)
-        values = nums.copy()
+        num_of_set= bin(nums[0]).count("1")
+        min_of_seg=nums[0]
+        max_of_seg=nums[0]
 
-        for i in range(n):
-            for j in range(n-i-1):
-                if values[j] <= values[j+1]:
-                    continue
-                else:
-                    if bin(values[j]).count("1") == bin(values[j+1]).count("1"):
-                        values[j], values[j+1] = values[j+1], values[j]
-                    else:
-                        return False
+        max_pre=float("-inf")
+
+        for i in range(1,len(nums)):
+            if num_of_set == bin(nums[i]).count("1"):
+                max_of_seg= max(max_of_seg, nums[i])
+                min_of_seg= min(min_of_seg, nums[i])
+
+            else:
+                if min_of_seg < max_pre:
+                    return False
+                
+                max_pre = max_of_seg
+
+                max_of_seg=nums[i]
+                min_of_seg = nums[i]
+                num_of_set= bin(nums[i]).count("1")
+        
+        if min_of_seg < max_pre:
+            return False
+        
         return True
