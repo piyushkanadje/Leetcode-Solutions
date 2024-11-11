@@ -8,9 +8,14 @@ class Solution:
                     return False
             return True
         
-
+        maxElement =max(nums)
         bound = 0
-
+        previous_prime = [0] * (maxElement + 1)
+        for i in range(2, maxElement + 1):
+            if checkPrime(i):
+                previous_prime[i] = i
+            else:
+                previous_prime[i] = previous_prime[i - 1]
         for i in range(len(nums)):
             if i == 0:
                 bound = nums[0]
@@ -20,11 +25,8 @@ class Solution:
             if bound <=0:
                 return False
 
-            largest = 0
-            for j in range(bound-1, 1, -1):
-                if checkPrime(j):
-                    largest = j
-                    break
+            largest = previous_prime[bound-1]
+   
             
             nums[i] = nums[i] -largest
 
