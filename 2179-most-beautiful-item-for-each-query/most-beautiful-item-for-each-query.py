@@ -1,26 +1,25 @@
 class Solution:
-    def maximumBeauty(
-        self, items: List[List[int]], queries: List[int]
-    ) -> List[int]:
-        # Sort and store max beauty
+    def maximumBeauty(self, items, queries):
+        ans = [0] * len(queries)
+
+        # sort both items and queries in ascending order
         items.sort(key=lambda x: x[0])
 
-        max_beauty = items[0][1]
-        for i in range(len(items)):
-            max_beauty = max(max_beauty, items[i][1])
-            items[i][1] = max_beauty
+        queries_with_indices = [[queries[i], i] for i in range(len(queries))]
 
-        return [self.binary_search(items, q) for q in queries]
+        queries_with_indices.sort(key=lambda x: x[0])
 
-    def binary_search(self, items, target_price):
-        left, right = 0, len(items) - 1
+        item_index = 0
         max_beauty = 0
-        while left <= right:
-            mid = (left + right) // 2
-            if items[mid][0] > target_price:
-                right = mid - 1
-            else:
-                # Found viable price. Keep moving to right
-                max_beauty = max(max_beauty, items[mid][1])
-                left = mid + 1
-        return max_beauty
+
+        for i in range(len(queries)):
+            query = queries_with_indices[i][0]
+            original_index = queries_with_indices[i][1]
+
+            while item_index < len(items) and items[item_index][0] <= query:
+                max_beauty = max(max_beauty, items[item_index][1])
+                item_index += 1
+
+            ans[original_index] = max_beauty
+
+        return ans
