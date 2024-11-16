@@ -7,8 +7,10 @@ class Solution:
                 consec_count += 1
             else:
                 consec_count = 1
+
             if consec_count >= k:
                 res.append(nums[i])
             elif i >= k - 1:
                 res.append(-1)
+                
         return res
