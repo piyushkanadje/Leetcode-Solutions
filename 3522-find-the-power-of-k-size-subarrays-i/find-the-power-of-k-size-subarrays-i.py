@@ -1,16 +1,49 @@
 class Solution:
     def resultsArray(self, nums: List[int], k: int) -> List[int]:
-        consec_count = 1
-        res = []
-        for i in range(len(nums)):
-            if i and nums[i - 1] + 1 == nums[i]:
-                consec_count += 1
-            else:
-                consec_count = 1
 
-            if consec_count >= k:
-                res.append(nums[i])
-            elif i >= k - 1:
-                res.append(-1)
-                
-        return res
+        arr = [False] * len(nums)
+        arr[0] = True
+
+        for i in range(1, len(nums)):
+            if nums[i] - nums[i-1] == 1:
+                arr[i] = True
+        
+        falseCount = 0
+
+        for i in range(k):
+            if arr[i] == False:
+                falseCount += 1
+        
+        l = 0
+        r = k-1
+        ans = []
+        while r < len(nums):
+
+            
+            
+
+            if falseCount == 0:
+                ans.append(nums[r])
+            
+            elif falseCount == 1 and arr[l] == False:
+                ans.append(nums[r])
+            
+            else:
+                ans.append(-1)
+            
+            
+            
+            l += 1
+            r += 1
+
+            if arr[l-1] == False:
+                falseCount -= 1
+            if r != len(nums):
+                if arr[r] == False:
+                    falseCount += 1
+
+
+
+            
+        
+        return ans
