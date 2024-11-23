@@ -18,5 +18,5 @@ class Solution:
             d[t_z] = d.get(t_z, 0) + 1
             d[t_o] = d.get(t_o, 0) + 1
         
-        print(d)
+  
         return max(list(d.values()))
