@@ -1,13 +1,22 @@
 class Solution:
     def maxEqualRowsAfterFlips(self, matrix: List[List[int]]) -> int:
-        pattern_frequency = {}
-        for current_row in matrix:
-
-            row_pattern ="".join(
-                "T" if num == current_row[0] else "F" for num in current_row
-            )
-
-            pattern_frequency[row_pattern]= 1 + pattern_frequency.get(row_pattern,0)
-
         
-        return max(pattern_frequency.values(),default=0)
+        d = {}
+
+        for row in matrix:
+            z_list = list()
+            o_list = list()
+            for i in range(len(row)):
+                if row[i] == 0:
+                    z_list.append(i)
+                
+                else:
+                    o_list.append(i)
+            t_z = tuple(z_list)
+            t_o = tuple(o_list)
+
+            d[t_z] = d.get(t_z, 0) + 1
+            d[t_o] = d.get(t_o, 0) + 1
+        
+        print(d)
+        return max(list(d.values()))
