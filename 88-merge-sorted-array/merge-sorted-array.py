@@ -1,18 +1,20 @@
 class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        """
-        Do not return anything, modify nums1 in-place instead.
-        """
-        pointer1 = m - 1
-        pointer2 = n - 1
-        totalNumber = m + n -1
+    def merge(self, arr1: List[int], m: int, arr2: List[int], n: int) -> None:
+        i = m - 1       # last valid element in arr1
+        j = n - 1       # last element in arr2
+        k = m + n - 1   # last index in arr1
 
-        while pointer2 >=0:
-            if pointer1>=0 and nums1[pointer1] > nums2[pointer2]:
-                nums1[totalNumber] = nums1[pointer1]
-                totalNumber-=1
-                pointer1-=1
+        while i >= 0 and j >= 0:
+            if arr1[i] > arr2[j]:
+                arr1[k] = arr1[i]
+                i -= 1
             else:
-                nums1[totalNumber] = nums2[pointer2]
-                pointer2-=1
-                totalNumber-=1
+                arr1[k] = arr2[j]
+                j -= 1
+            k -= 1
+
+        # If any elements left in arr2
+        while j >= 0:
+            arr1[k] = arr2[j]
+            j -= 1
+            k -= 1
