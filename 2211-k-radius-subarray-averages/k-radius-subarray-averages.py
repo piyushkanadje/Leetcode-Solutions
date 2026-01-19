@@ -1,23 +1,26 @@
 class Solution:
     def getAverages(self, nums: List[int], k: int) -> List[int]:
+        n = len(nums)
+        ans = [-1] * n
+        
         if k == 0:
             return nums
-        if k > len(nums):
-            return [-1]*len(nums)
-        ans = [0] * len(nums)
-        prefixSum =[nums[0]]
-        for i in range(1, len(nums)):
-            prefixSum.append(prefixSum[-1] + nums[i])
-        print(prefixSum)
-        for i in range(len(nums)):
-            if i > k-1 and i < len(nums) - k  :
-                # print( (prefixSum[i+k] - prefixSum[i-1]))
-                print(prefixSum[i-k-1])
-                if (i-k-1) < 0:
-                    ans[i] = prefixSum[i+k]//(2*k + 1)
-                else: 
-                    ans[i] = (prefixSum[i+k] - prefixSum[i-k-1])//(2*k + 1)
-            else:
-                ans[i] = -1
+        
+        prefixSum = [0] * n
+        prefixSum[0] = nums[0]
+        
+        for i in range(1, n):
+            prefixSum[i] = prefixSum[i-1] + nums[i]
+        
+        for i in range(k, n - k):
+            left = i - k
+            right = i + k
             
+            if left == 0:
+                window_sum = prefixSum[right]
+            else:
+                window_sum = prefixSum[right] - prefixSum[left - 1]
+            
+            ans[i] = window_sum // (2 * k + 1)
+        
         return ans
