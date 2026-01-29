@@ -1,13 +1,12 @@
 class Solution:
     def intersection(self, nums: List[List[int]]) -> List[int]:
-        ans = []
-        count = collections.defaultdict(int)
+        d = collections.defaultdict(int)
         for i in nums:
-            for x in i:
-                count[x]+=1
-        
-        n= len(nums)
-        for key in count.keys():
-            if count[key] == n:
-                ans.append(key)
+            for j in i:
+                d[j]+=1
+        ans =[]
+        for j in d.keys():
+            if d[j] == len(nums):
+                ans.append(j)
+
         return sorted(ans)
