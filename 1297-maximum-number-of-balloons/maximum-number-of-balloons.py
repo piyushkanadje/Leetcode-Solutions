@@ -1,11 +1,14 @@
 class Solution:
     def maxNumberOfBalloons(self, text: str) -> int:
-        d = collections.defaultdict(int)
-        for i in range(len(text)):
-            d[text[i]]+=1
-        ans = 0
-        lCount = d["l"]//2
-        oCount = d["o"]//2
-        ans = min(d["b"], lCount, oCount, d["n"],d["a"])
+        pattern_str = 'balloon'
+        pattern_elem_freq = Counter(pattern_str)
+        text_elem_freq = Counter(text)
+        max_pattern_count = math.inf
 
-        return ans
+        print(pattern_elem_freq)
+        print(text_elem_freq)
+
+        for char in pattern_str:
+            max_pattern_count = min(max_pattern_count, text_elem_freq[char] // pattern_elem_freq[char])
+
+        return max_pattern_count
