@@ -1,8 +1,11 @@
 class Solution:
     def maxNumberOfBalloons(self, text: str) -> int:
-        counterB = Counter("balloon")
-        c = Counter(text)
-        ans = float('inf')
-        for i in counterB.keys():
-            ans = min(c[i]//counterB[i], ans)
+        d = collections.defaultdict(int)
+        for i in range(len(text)):
+            d[text[i]]+=1
+        ans = 0
+        lCount = d["l"]//2
+        oCount = d["o"]//2
+        ans = min(d["b"], lCount, oCount, d["n"],d["a"])
+
         return ans
