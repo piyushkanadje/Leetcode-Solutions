@@ -1,25 +1,17 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        n = len(s)
-        i=0
         stack = []
-        if len(s)==1:
-            return False
+        matching = {'(':')', '{':'}','[': ']'}
 
         for c in s:
-            if c == "{" or c=="[" or c=="(":
+            if c in matching:
                 stack.append(c)
-            
             else:
                 if not stack:
                     return False
-                elif stack[-1]=="[" and c !="]":
-                    return False
-                elif stack[-1] =="{" and c !="}":
-                    return False
-                elif stack[-1]=="(" and c!=")":
-                    return False
                 
-                stack.pop()
-        
+                previousOpening = stack.pop()
+                if matching[previousOpening] != c:
+                    return False
+            
         return not stack
